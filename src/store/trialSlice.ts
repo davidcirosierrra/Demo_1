@@ -10,8 +10,9 @@ interface AssetsState {
 const initialState: AssetsState = {
 	trialData: {
 		accelValues: [],
+		orientationValues: [],
 	},
-};	
+};
 
 const trialSlice = createSlice({
 	name: 'trial',
@@ -20,21 +21,28 @@ const trialSlice = createSlice({
 		setTrialData(state, action: PayloadAction<TrialData>) {
 			state.trialData = action.payload;
 		},
-		addMeasurement(state, action: PayloadAction<{ unitData: { x: number; y: number; z: number } }>) {
+		addAccelMeasurement(state, action: PayloadAction<{ unitData: { x: number; y: number; z: number } }>) {
 
 			state.trialData.accelValues.push({
 				timestamp: Date.now(),
-				...action.payload,
+				unitData: action.payload.unitData,
+			});
+		},
+		addOrientationMeasurement(state, action: PayloadAction<{ orientationUnitData: { alpha: number; beta: number; gamma: number } }>) {
+			state.trialData.orientationValues.push({
+				timestamp: Date.now(),
+				orientationData: action.payload.orientationUnitData,		
 			});
 		},
 		clean(state) {
 			state.trialData = {
 				accelValues: [],
+				orientationValues: [],
 			};
 		}
 	},
 
 });
 
-export const { setTrialData, addMeasurement, clean } = trialSlice.actions;
+export const { setTrialData, addAccelMeasurement, addOrientationMeasurement, clean } = trialSlice.actions;
 export default trialSlice.reducer;
