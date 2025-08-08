@@ -1,7 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import { SparkLineChart } from '@mui/x-charts/SparkLineChart';
-import Badge from '@mui/material/Badge';
 export type SparkLineComponentProps = {
 	title: string;
 	values: number[];
